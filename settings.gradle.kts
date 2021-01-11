@@ -1,1 +1,1 @@
-rootProject.name = "Android-MVVM-Generator"
+rootProject.name = "MVVM-Generator-ooftf"

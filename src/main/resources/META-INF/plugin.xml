@@ -1,19 +1,37 @@
 <idea-plugin>
     <id>com.github.ooftf.androidmvvmgenerator</id>
-    <name>Android-MVVM-Generator</name>
+    <name>MVVM-Generator-ooftf</name>
     <vendor>ooftf</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
-
-    <extensions defaultExtensionNs="com.intellij">
+    <depends>org.jetbrains.android</depends>
+    <!--<extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.ooftf.androidmvvmgenerator.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.ooftf.androidmvvmgenerator.services.MyProjectService"/>
-    </extensions>
+    </extensions>-->
 
     <applicationListeners>
         <listener class="com.github.ooftf.androidmvvmgenerator.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable instance="com.github.ooftf.androidmvvmgenerator.real.configure.MVVMTemplateConfigure"/>
+        <applicationService
+                serviceImplementation="com.github.ooftf.androidmvvmgenerator.real.configure.MVVMTemplateSettings"/>
+        <projectService serviceImplementation="com.github.ooftf.androidmvvmgenerator.services.MyProjectService"/>
+    </extensions>
+    <actions>
+        <action id="MVVMActivityAction" class="com.github.ooftf.androidmvvmgenerator.real.action.MVVMActivityAction"
+                text="MVVMActivityAction" description="Activity生成Action">
+            <keyboard-shortcut keymap="$default" first-keystroke="shift meta A"/>
+        </action>
+        <action id="MVVMFragmentAction" class="com.github.ooftf.androidmvvmgenerator.real.action.MVVMFragmentAction"
+                text="MVVMFragmentAction" description="Fragment生成Action">
+            <keyboard-shortcut keymap="$default" first-keystroke="shift meta F"/>
+        </action>
+    </actions>
 </idea-plugin>
