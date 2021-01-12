@@ -1,7 +1,7 @@
 # MVVM-Generator-ooftf
 
-配合 implementation 'com.ooftf:arch-frame-mvvm:0.0.4'使用的代码生成工具
-可一键生成 mvvm配套Activity Fragment ViewModel layout 
+  配合 implementation 'com.ooftf:arch-frame-mvvm:0.0.4'使用的代码生成工具
+  可一键生成 mvvm配套Activity Fragment ViewModel layout 
 
 
 ## Installation
