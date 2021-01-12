@@ -1,6 +1,6 @@
 # MVVM-Generator-ooftf
 
-  配合 implementation 'com.ooftf:arch-frame-mvvm:0.1.5'使用的代码生成工具  
+  配合 [mvvm-component](https://github.com/ooftf/mvvm-component) 使用的代码生成工具  
   可一键生成 mvvm配套Activity Fragment ViewModel layout 
 
 
@@ -15,4 +15,8 @@
 
   Download the [latest release](https://github.com/ooftf/Android-MVVM-Generator/releases/latest) and install it manually using
   <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
+## 快捷键
+- 创建Activity
+  使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> 创建Activity
+- 创建Fragment
+  使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> 创建Fragment
