@@ -27,11 +27,11 @@
     <actions>
         <action id="MVVMActivityAction" class="com.github.ooftf.androidmvvmgenerator.real.action.MVVMActivityAction"
                 text="MVVMActivityAction" description="Activity生成Action">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift meta A"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt A"/>
         </action>
         <action id="MVVMFragmentAction" class="com.github.ooftf.androidmvvmgenerator.real.action.MVVMFragmentAction"
                 text="MVVMFragmentAction" description="Fragment生成Action">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift meta F"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt F"/>
         </action>
     </actions>
 </idea-plugin>

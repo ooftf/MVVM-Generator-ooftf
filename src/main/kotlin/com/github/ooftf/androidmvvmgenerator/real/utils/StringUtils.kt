@@ -27,7 +27,7 @@ object StringUtils {
     }
 
     fun isEmpty(str: String?): Boolean {
-        return str == null || str.length == 0
+        return str == null || str.isEmpty()
     }
 
     fun format(content: String): String {

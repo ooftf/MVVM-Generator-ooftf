@@ -13,7 +13,7 @@ import com.intellij.openapi.components.Storage
 
 import org.jdom.Element
 
-@State(name = "MVVMTemplateSetting", storages = [Storage("ooftf_mvvm_994749769_config.xml")])
+@State(name = "MVVMTemplateSetting", storages = [Storage("ooftf_mvvm_994749769_config_version12.xml")])
 class MVVMTemplateSettings : PersistentStateComponent<Element> {
     var activityTemplate: String = MVVMTemple.ACTIVITY
     var fragmentTemplate: String = MVVMTemple.FRAGMENT
