@@ -1,8 +1,7 @@
 # Android-MVVM-Generator
 
 <!-- Plugin description -->
-**Android-MVVM-Generator** 配合 [mvvm-component](https://github.com/ooftf/mvvm-component) 使用的代码生成工具 可一键生成 mvvm配套Activity
-Fragment ViewModel layout
+**Android-MVVM-Generator** Use it with [mvvm-component](https://github.com/ooftf/mvvm-component) ,Code generation tools can  generated  mvvm Activity Fragment ViewModel layout with one click
 <!-- Plugin description end -->
 
 ### 快捷键
