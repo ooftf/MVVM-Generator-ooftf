@@ -54,7 +54,7 @@ open class MVVMGeneratorAction : AnAction() {
     ) {
         val fileName: String =
                 com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
-                        prefixName + targetName, "Activity", ".kt"
+                         targetName, "Activity", ".kt"
                 )
         var content: String = setting.activityTemplate
         content = content.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
