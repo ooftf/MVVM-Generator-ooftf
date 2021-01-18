@@ -84,7 +84,7 @@ class MVVMForm {
         jPanel10.add(jTextArea10, GridConstraints(0, 0, 1, 1, 0, 3, 6, 6, null as Dimension?, Dimension(150, 50), null as Dimension?))
     }
 
-    /* synthetic */   fun `$$$getRootComponent$$$`(): JComponent? {
+    /* synthetic */   fun getRootComponent(): JComponent {
         return mainPanel
     }
 

@@ -27,7 +27,7 @@ class MVVMTemplateConfigure : SearchableConfigurable {
         return MVVMTemplateConfigure::class.java.name
     }
 
-    override fun createComponent(): JComponent? {
+    override fun createComponent(): JComponent {
         return form.mainPanel
     }
 

@@ -8,13 +8,13 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.Messages
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import com.intellij.openapi.vfs.VirtualFile
 import com.github.ooftf.androidmvvmgenerator.real.configure.MVVMTemplateSettings
+import com.intellij.openapi.project.guessProjectDir
 import java.lang.IllegalArgumentException
 
 open class MVVMGeneratorAction : AnAction() {
@@ -25,10 +25,6 @@ open class MVVMGeneratorAction : AnAction() {
         project = e.getData(PlatformDataKeys.PROJECT) as Project
         val path = getCurrentPath(e)
         val moduleName = inputModuleName() ?: return
-        if (path == null) {
-            MyCustomDialog.createAndShowErrorNotification(project, "路径错误")
-            return
-        }
         if (moduleName.first.isBlank()) {
             return
         }
@@ -47,23 +43,23 @@ open class MVVMGeneratorAction : AnAction() {
 
     @Throws(IOException::class)
     fun createActivity(
-            setting: MVVMTemplateSettings,
-            pathString: String,
-            packageName: String,
-            targetName: String, prefixName: String
+        setting: MVVMTemplateSettings,
+        pathString: String,
+        packageName: String,
+        targetName: String, prefixName: String
     ) {
         val fileName: String =
-                com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
-                         targetName, "Activity", ".kt"
-                )
+            com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
+                targetName, "Activity", ".kt"
+            )
         var content: String = setting.activityTemplate
         content = content.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
         content = content.replace("\\$\\{TARGET_NAME}".toRegex(), targetName)
         content = content.replace("\\$\\{PREFIX_NAME}".toRegex(), prefixName)
         content = content.replace("\\$\\{prefix_name}".toRegex(), prefixName.toLowerCase())
         content = content.replace(
-                "\\$\\{TARGET_NAME_LINE}".toRegex(),
-                com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(targetName)
+            "\\$\\{TARGET_NAME_LINE}".toRegex(),
+            com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(targetName)
         )
         content = com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.format(content)
         createFile(pathString, fileName, content)
@@ -71,23 +67,23 @@ open class MVVMGeneratorAction : AnAction() {
 
     @Throws(IOException::class)
     fun createFragment(
-            setting: MVVMTemplateSettings,
-            pathString: String,
-            packageName: String,
-            targetName: String, prefixName: String
+        setting: MVVMTemplateSettings,
+        pathString: String,
+        packageName: String,
+        targetName: String, prefixName: String
     ) {
         val fileName: String =
-                com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
-                        targetName, "Fragment", ".kt"
-                )
-        var content: String = setting.fragmentTemplate!!
+            com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
+                targetName, "Fragment", ".kt"
+            )
+        var content: String = setting.fragmentTemplate
         content = content.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
         content = content.replace("\\$\\{TARGET_NAME}".toRegex(), targetName)
         content = content.replace("\\$\\{PREFIX_NAME}".toRegex(), prefixName)
         content = content.replace("\\$\\{prefix_name}".toRegex(), prefixName.toLowerCase())
         content = content.replace(
-                "\\$\\{TARGET_NAME_LINE}".toRegex(),
-                com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(targetName)
+            "\\$\\{TARGET_NAME_LINE}".toRegex(),
+            com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(targetName)
         )
         content = com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.format(content)
         createFile(pathString, fileName, content)
@@ -95,17 +91,17 @@ open class MVVMGeneratorAction : AnAction() {
 
     @Throws(IOException::class)
     fun createViewModel(
-            setting: MVVMTemplateSettings,
-            pathString: String,
-            packageName: String,
-            targetName: String, prefixName: String
+        setting: MVVMTemplateSettings,
+        pathString: String,
+        packageName: String,
+        targetName: String, prefixName: String
     ) {
         val fileName: String =
-                com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
-                        targetName, "ViewModel", ".kt"
-                )
+            com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
+                targetName, "ViewModel", ".kt"
+            )
         var content: String =
-                setting.viewModelTemplate!!.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
+            setting.viewModelTemplate.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
         content = content.replace("\\$\\{TARGET_NAME}".toRegex(), targetName)
         content = content.replace("\\$\\{PREFIX_NAME}".toRegex(), prefixName)
         content = content.replace("\\$\\{prefix_name}".toRegex(), prefixName.toLowerCase())
@@ -115,10 +111,10 @@ open class MVVMGeneratorAction : AnAction() {
 
     @Throws(IOException::class)
     fun createActivityLayout(
-            setting: MVVMTemplateSettings,
-            pathString: String,
-            packageName: String,
-            targetName: String, prefixName: String
+        setting: MVVMTemplateSettings,
+        pathString: String,
+        packageName: String,
+        targetName: String, prefixName: String
     ) {
         val pre = if (prefixName.isBlank()) {
             ""
@@ -126,13 +122,13 @@ open class MVVMGeneratorAction : AnAction() {
             prefixName.toLowerCase() + "_"
         }
         val fileName: String =
-                com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
-                        pre, "activity", com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(
-                        targetName
+            com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
+                pre, "activity", com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(
+                    targetName
                 ), ".xml"
-                )
+            )
         var content: String =
-                setting.layoutActivityTemplate.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
+            setting.layoutActivityTemplate.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
         content = content.replace("\\$\\{TARGET_NAME}".toRegex(), targetName)
         content = content.replace("\\$\\{PREFIX_NAME}".toRegex(), prefixName)
         content = content.replace("\\$\\{prefix_name}".toRegex(), prefixName.toLowerCase())
@@ -142,10 +138,10 @@ open class MVVMGeneratorAction : AnAction() {
 
     @Throws(IOException::class)
     fun createFragemtnLayout(
-            setting: MVVMTemplateSettings,
-            pathString: String,
-            packageName: String,
-            targetName: String, prefixName: String
+        setting: MVVMTemplateSettings,
+        pathString: String,
+        packageName: String,
+        targetName: String, prefixName: String
     ) {
         val pre = if (prefixName.isBlank()) {
             ""
@@ -153,13 +149,13 @@ open class MVVMGeneratorAction : AnAction() {
             prefixName.toLowerCase() + "_"
         }
         val fileName: String =
-                com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
-                        pre, "fragment", com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(
-                        targetName
+            com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.plusString(
+                pre, "fragment", com.github.ooftf.androidmvvmgenerator.real.utils.StringUtils.humpToLine(
+                    targetName
                 ), ".xml"
-                )
+            )
         var content: String =
-                setting.layoutFragmentTemplate.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
+            setting.layoutFragmentTemplate.replace("\\$\\{PACKAGE_NAME}".toRegex(), packageName)
         content = content.replace("\\$\\{TARGET_NAME}".toRegex(), targetName)
         content = content.replace("\\$\\{PREFIX_NAME}".toRegex(), prefixName)
         content = content.replace("\\$\\{prefix_name}".toRegex(), prefixName.toLowerCase())
@@ -189,7 +185,7 @@ open class MVVMGeneratorAction : AnAction() {
     }
 
     private fun refreshProject(e: AnActionEvent) {
-        e.project!!.baseDir.refresh(false, true)
+        e.project?.guessProjectDir()?.refresh(false, true)
     }
 
     private fun inputModuleName(): Pair<String, String>? {
@@ -201,10 +197,10 @@ open class MVVMGeneratorAction : AnAction() {
         }
     }
 
-    private fun getCurrentPath(e: AnActionEvent): String? {
+    private fun getCurrentPath(e: AnActionEvent): String {
         val currentFile: VirtualFile =
-                PlatformDataKeys.VIRTUAL_FILE.getData(e.getDataContext()) as VirtualFile
-        return if (currentFile != null) currentFile.getPath() else null
+            PlatformDataKeys.VIRTUAL_FILE.getData(e.getDataContext()) as VirtualFile
+        return currentFile.path
     }
 
     protected fun getPackageName(path: String): String {
@@ -232,8 +228,15 @@ open class MVVMGeneratorAction : AnAction() {
     }
 
     companion object {
-        fun `$$$reportNull$$$0`(i: Int) {
-            throw IllegalArgumentException(String.format("Argument for @NotNull parameter '%s' of %s.%s must not be null", *arrayOf<Any>("e", "action/MVVMGeneratorAction", "actionPerformed")))
+        fun reportNull(i: Int) {
+            throw IllegalArgumentException(
+                String.format(
+                    "Argument for @NotNull parameter '%s' of %s.%s must not be null",
+                    "e",
+                    "action/MVVMGeneratorAction",
+                    "actionPerformed"
+                )
+            )
         }
     }
 }

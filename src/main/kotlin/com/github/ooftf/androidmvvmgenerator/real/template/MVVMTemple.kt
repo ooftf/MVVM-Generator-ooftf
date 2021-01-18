@@ -5,9 +5,6 @@
 package com.github.ooftf.androidmvvmgenerator.real.template
 
 object MVVMTemple {
-    const val ACTIVITY_SUFFIX = "Activity"
-    const val FRAGMENT_SUFFIX = "Fragment"
-    const val VIEW_MODEL_SUFFIX = "ViewModel"//PREFIX_NAME
     const val ACTIVITY =
             "package \${PACKAGE_NAME}\n\n" +
                     "import com.alibaba.android.arouter.facade.annotation.Route\n" +

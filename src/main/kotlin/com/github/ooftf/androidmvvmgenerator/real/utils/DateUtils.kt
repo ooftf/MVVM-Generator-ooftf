@@ -27,11 +27,11 @@ object DateUtils {
     var FORMAT_YMDHMS_CN = "yyyy年MM月dd日  HH时mm分ss秒"
     @JvmOverloads
     fun format(
-        time: String?,
-        targetModel: String?,
-        nowModel: String?,
-        locale: Locale? = Locale.getDefault()
-    ): String? {
+        time: String,
+        targetModel: String,
+        nowModel: String,
+        locale: Locale = Locale.getDefault()
+    ): String {
         var time = time
         try {
             val nowFormatter = SimpleDateFormat(nowModel, locale)
@@ -46,9 +46,9 @@ object DateUtils {
 
     @JvmOverloads
     fun formatTolong(
-        time: String?,
-        nowModel: String?,
-        locale: Locale? = Locale.getDefault()
+        time: String,
+        nowModel: String,
+        locale: Locale = Locale.getDefault()
     ): Long {
         return try {
             val formatter = SimpleDateFormat(nowModel, locale)
@@ -60,18 +60,18 @@ object DateUtils {
         }
     }
 
-    fun format(time: Long, tagModel: String?): String {
+    fun format(time: Long, tagModel: String): String {
         val date = Date(time)
         return format(date, tagModel)
     }
 
-    fun format(time: Long, tagModel: String?, locale: Locale?): String {
+    fun format(time: Long, tagModel: String, locale: Locale): String {
         val data = Date(time)
         return format(data, tagModel, locale)
     }
 
     @JvmOverloads
-    fun format(date: Date?, tagModel: String?, locale: Locale? = Locale.getDefault()): String {
+    fun format(date: Date?, tagModel: String, locale: Locale = Locale.getDefault()): String {
         val formatter = SimpleDateFormat(tagModel, locale)
         return formatter.format(date)
     }
@@ -96,11 +96,11 @@ object DateUtils {
     }
 
     fun isSameDay(time1: Long, time2: Long): Boolean {
-        var time1 = time1
-        var time2 = time2
-        time1 = removeHourMinSec(time1)
-        time2 = removeHourMinSec(time2)
-        return time1 == time2
+        var varTime1 = time1
+        var varTime2 = time2
+        varTime1 = removeHourMinSec(varTime1)
+        varTime2 = removeHourMinSec(varTime2)
+        return varTime1 == varTime2
     }
 
     val currentTimeWithoutHourMinSec: Long

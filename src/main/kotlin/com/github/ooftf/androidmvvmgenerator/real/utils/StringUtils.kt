@@ -14,13 +14,9 @@ object StringUtils {
     const val ZERO = "0"
     fun plusString(vararg strs: Any): String {
         val builder = StringBuilder()
-        val var2: Array<Any> = strs as Array<Any>
-        val var3 = strs.size
-        for (var4 in 0 until var3) {
-            val str = var2[var4]
-            val _str = str.toString()
-            if (!TextUtils.isEmpty(_str)) {
-                builder.append(str)
+        strs.forEach {
+            if (!TextUtils.isEmpty(it.toString())) {
+                builder.append(it)
             }
         }
         return builder.toString()
@@ -31,14 +27,14 @@ object StringUtils {
     }
 
     fun format(content: String): String {
-        var content = content
+        var varContent = content
         val username = System.getenv("USERNAME")
         val date: String = DateUtils.format(System.currentTimeMillis(), DateUtils.FORMAT_YMD)
         if (!isEmpty(username)) {
-            content = content.replace("\\$\\{USER}".toRegex(), username!!)
+            varContent = varContent.replace("\\$\\{USER}".toRegex(), username!!)
         }
-        content = content.replace("\\$\\{DATE}".toRegex(), date)
-        return content
+        varContent = varContent.replace("\\$\\{DATE}".toRegex(), date)
+        return varContent
     }
 
     fun humpToLine(str: String): String {
